@@ -13,7 +13,7 @@ const indexScreen = () => {
   return (
     <View>
       <Text>This is Index Screen</Text>
-      <TouchableOpacity style={styles.button} onPress={() => addBlogPost()}>
+      <TouchableOpacity style={styles.button} onPress={addBlogPost}>
         <Text>Add Post</Text>
       </TouchableOpacity>
       <FlatList
