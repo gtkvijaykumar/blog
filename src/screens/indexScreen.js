@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Context } from "../context/blogContext";
+import { Feather } from "@expo/vector-icons";
 
 const indexScreen = () => {
-  const { state, addBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
   return (
     <View>
       <Text>This is Index Screen</Text>
@@ -18,9 +19,18 @@ const indexScreen = () => {
       </TouchableOpacity>
       <FlatList
         data={state}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
-          return <Text>{item.title}</Text>;
+          return (
+            <View style={styles.row}>
+              <Text style={styles.text}>
+                {item.title}-{item.id}
+              </Text>
+              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                <Feather name="trash" style={styles.icon}></Feather>
+              </TouchableOpacity>
+            </View>
+          );
         }}
       />
     </View>
@@ -34,6 +44,20 @@ const styles = StyleSheet.create({
     height: 25,
     width: 75,
     margin: 10,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 6,
+    paddingHorizontal: 3,
+    borderColor: "black",
+    borderTopWidth: 2,
+  },
+  text: {
+    fontSize: 18,
+  },
+  icon: {
+    fontSize: 24,
   },
 });
 
