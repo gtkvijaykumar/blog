@@ -9,7 +9,7 @@ import {
 import { Context } from "../context/blogContext";
 import { Feather } from "@expo/vector-icons";
 
-const indexScreen = ({ navigation }) => {
+const IndexScreen = ({ navigation }) => {
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
   return (
     <View>
@@ -41,6 +41,16 @@ const indexScreen = ({ navigation }) => {
   );
 };
 
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+        <Feather name="plus" style={styles.headerIcon} />
+      </TouchableOpacity>
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "orange",
@@ -63,6 +73,10 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 24,
   },
+  headerIcon: {
+    fontSize: 28,
+    marginRight: 15,
+  },
 });
 
-export default indexScreen;
+export default IndexScreen;
