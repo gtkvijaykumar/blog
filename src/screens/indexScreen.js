@@ -13,10 +13,6 @@ const IndexScreen = ({ navigation }) => {
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
   return (
     <View>
-      <Text>This is Index Screen</Text>
-      <TouchableOpacity style={styles.button} onPress={addBlogPost}>
-        <Text>Add Post</Text>
-      </TouchableOpacity>
       <FlatList
         data={state}
         keyExtractor={(item) => item.id}
