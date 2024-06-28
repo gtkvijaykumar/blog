@@ -9,9 +9,8 @@ const ShowScreen = ({ navigation }) => {
   const selectedBlogPost = state.find((el) => el.id == blogPostId);
   return (
     <View>
-      <Text style={styles.text}>
-        {selectedBlogPost.title}-{selectedBlogPost.id}
-      </Text>
+      <Text style={styles.text}>{selectedBlogPost.id}</Text>
+      <Text style={styles.text}>{selectedBlogPost.title}</Text>
       <Text style={styles.text}>{selectedBlogPost.content}</Text>
     </View>
   );
@@ -20,7 +19,11 @@ const ShowScreen = ({ navigation }) => {
 ShowScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
-      <TouchableOpacity onPress={() => console.log("I am going to be edited")}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("Edit", { id: navigation.getParam("id") })
+        }
+      >
         <Feather name="edit" style={styles.headerIcon} />
       </TouchableOpacity>
     ),
