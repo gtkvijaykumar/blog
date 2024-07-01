@@ -26,7 +26,7 @@ const EditScreen = ({ navigation }) => {
       ></TextInput>
       <Button
         title="Save Blog Post"
-        onPress={() => saveBlogPost(id, title, content)}
+        onPress={() => saveBlogPost(id, title, content, () => navigation.pop())}
       ></Button>
     </View>
   );
