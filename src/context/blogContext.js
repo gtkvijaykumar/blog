@@ -1,7 +1,11 @@
+import axios from "axios";
+import jsonServer from "../api/jsonServer";
 import createDataContext from "./createDataContext";
 
 const blogPostReducer = (state, action) => {
   switch (action.type) {
+    case "get_blogPosts":
+      return action.payload;
     case "add_blogPost":
       return [
         ...state,
@@ -22,9 +26,17 @@ const blogPostReducer = (state, action) => {
   }
 };
 
+const getBlogPosts = (dispatch) => {
+  return async () => {
+    const response = await jsonServer.get("blogposts");
+    dispatch({ type: "get_blogPosts", payload: response.data });
+  };
+};
+
 const addBlogPost = (dispatch) => {
-  return (title, content, callback) => {
-    dispatch({ type: "add_blogPost", payload: { title, content } });
+  return async (title, content, callback) => {
+    await jsonServer.post("blogposts", { title, content });
+    // dispatch({ type: "add_blogPost", payload: { title, content } });
     if (callback) callback();
   };
 };
@@ -44,10 +56,6 @@ const saveBlogPost = (dispatch) => {
 
 export const { Context, Provider } = createDataContext(
   blogPostReducer,
-  { addBlogPost, deleteBlogPost, saveBlogPost },
-  [
-    { id: 10, title: "Blog Post #1", content: "Blog Post Content #1" },
-    { id: 20, title: "Blog Post #2", content: "Blog Post Content #2" },
-    { id: 30, title: "Blog Post #3", content: "Blog Post Content #3" },
-  ]
+  { addBlogPost, deleteBlogPost, saveBlogPost, getBlogPosts },
+  []
 );
